@@ -1,6 +1,7 @@
 package ku.cashregister;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,12 +10,15 @@ public class CashRegister {
     private double payment;  // total amount paid
 
     private TaxCalculator taxCalculator;
+    private String location;
 
     @Autowired
-    public CashRegister(TaxCalculator taxCalculator) {
+    public CashRegister(TaxCalculator taxCalculator,
+                        @Value("${location}") String location) {
         this.purchase = 0;
         this.payment = 0;
         this.taxCalculator = taxCalculator;
+        this.location = location;
     }
 
     public void recordPurchase(double amount) {
